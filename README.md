@@ -29,7 +29,7 @@ If it detects a face by using another model designed for face recognition (OpenC
 Emotions with a higher probability for the face will appear first, and in total, the 5 most dominant emotions embodied through the face will appear.   
 
 <p>
-  <img src="diagram.png" width="35%" height="auto">
+  <img src="diagram.png" width="25%" height="auto">
 </p>
 
 ## Requirements

@@ -16,6 +16,10 @@ Now, once we have selected an area of our screen to focus on, the algorithm will
 If it detects a face by using another model designed for face recognition (OpenCV's haarcascades), it will crop the face and transform it into black and white to avoid biases, and feed it to the clip model, and start providing different probabilities for each label or emotion.   
 Emotions with a higher probability for the face will appear first, and in total, the 5 most dominant emotions embodied through the face will appear.   
 
+<p align="center">
+  <img src="diagram.png">
+</p>
+
 ## Requirements
 $ pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113   
 $ pip install git+https://github.com/openai/CLIP.git   

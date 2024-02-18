@@ -16,7 +16,8 @@ To perform such a task, we use a zero-shot classification model. These types of 
 Classification tasks were mainly of texts, but now there are models that are modest enough to also classify images or visual content. What we have done is to use the OpenAI Clip model, and classify each frame into one of several different categories or labels.   
      
 For our purpose, the categories or labels are emotions, and we will also add the word "Face" to them to be more specific for the model.   
-We have selected several emotions for the labels such as Happy Face, Sad Face, Angry Face, Fear Face, Nervous Face, Disgust Face, Contempt Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Proud Face, Guilty Face, Shy Face , Sympathetic Face, Infatuated Face, Neutral Face.    
+We have selected several emotions for the labels such as:    
+Happy Face, Sad Face, Angry Face, Fear Face, Nervous Face, Disgust Face, Contempt Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Proud Face, Guilty Face, Shy Face , Sympathetic Face, Infatuated Face, Neutral Face.    
 Other unselected emotions were dropped from the list because they had too high correlations with other labels or emotions.   
     
 Now, once we have selected an area of our screen to focus on, the algorithm will search for a face in it.    

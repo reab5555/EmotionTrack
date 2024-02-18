@@ -4,4 +4,3 @@ torch
 Pillow
 tk
 mss
-screeninfo

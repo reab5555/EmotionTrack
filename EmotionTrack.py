@@ -5,49 +5,21 @@ import torch
 from PIL import Image, ImageTk
 import tkinter as tk
 from mss import mss
-from screeninfo import get_monitors
-import time
 import torch.nn.functional as F
 
 
 global input_labels_X, snapshot, snapshot_mode, second_monitor_coordinates
 
+
 input_labels_X = "Happy Face, Sad Face, Angry Face, Fear Face, Nervous Face, Disgust Face, Contempt Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Proud Face, Guilty Face, Shy Face, Sympathetic Face, Infatuated Face, Neutral Face"
-
-monitor_coordinates = None
-if len(get_monitors()) > 1:
-    monitor = get_monitors()[0]
-    monitor_x, monitor_y, monitor_width, monitor_height = monitor.x, monitor.y, monitor.width, monitor.height
-    taskbar_height = 100  # Approximate height of the taskbar
-    # Adjust monitor_height to exclude the taskbar
-    monitor_height_adjusted = monitor_height - taskbar_height
-    monitor_coordinates = {'left': monitor_x, 'top': monitor_y, 'width': monitor_width, 'height': monitor_height_adjusted}
-
-
-def get_monitor_options():
-    monitors = get_monitors()
-    monitor_options = [f"Monitor {i+1}: {monitor.width}x{monitor.height}+{monitor.x}+{monitor.y}" for i, monitor in enumerate(monitors)]
-    return monitor_options
-
-def update_monitor_selection(*args):
-    global monitor_coordinates
-    selection = monitor_var.get()
-    monitor_index = int(selection.split(':')[0].replace('Monitor ', '')) - 1
-    monitor = get_monitors()[monitor_index]
-    taskbar_height = 80  # Approximate height of the taskbar
-    # Adjust monitor_height to exclude the taskbar
-    monitor_height_adjusted = monitor.height - taskbar_height
-    monitor_coordinates = {'left': monitor.x, 'top': monitor.y, 'width': monitor.width, 'height': monitor_height_adjusted}
-
 
 
 device = "cuda"
 model, preprocess = clip.load("ViT-L/14", device=device)
 
-cap = cv2.VideoCapture(0)
 
 root = tk.Tk()
-root.title("Live Capture Face Detection")
+root.title("EmotionTrack")
 root.attributes('-topmost', True)
 root.resizable(False, False)
 
@@ -59,20 +31,6 @@ label0.pack()
 
 controls_frame = tk.Frame(root, bg="#f0f0f0")
 controls_frame.pack(fill=tk.X, expand=True)
-
-# Monitor selection setup
-def get_monitor_options():
-    monitors = get_monitors()
-    return [f"Monitor {i+1}: {monitor.width}x{monitor.height}+{monitor.x}+{monitor.y}" for i, monitor in enumerate(monitors)]
-
-def update_monitor_selection(*args):
-    global monitor_coordinates
-    selection = monitor_var.get()
-    monitor_index = int(selection.split(':')[0].replace('Monitor ', '')) - 1
-    monitor = get_monitors()[monitor_index]
-    taskbar_height = 100  # Adjusted taskbar height for better accuracy
-    monitor_height_adjusted = monitor.height - taskbar_height
-    monitor_coordinates = {'left': monitor.x, 'top': monitor.y, 'width': monitor.width, 'height': monitor_height_adjusted}
 
 
 
@@ -105,7 +63,6 @@ def select_capture_area():
             height = width / aspect_ratio
         # Update rectangle coordinates
         canvas.coords('area', start_x, start_y, start_x + width, start_y + height)
-
 
     def on_mouse_release(event):
         global capture_area
@@ -146,14 +103,9 @@ def select_capture_area():
 select_area_button = tk.Button(controls_frame, text="Select Capture Area", command=select_capture_area)
 select_area_button.pack(side=tk.LEFT, padx=5)
 
-monitor_options = get_monitor_options()
-monitor_var = tk.StringVar(root)
-monitor_var.set(monitor_options[0])
-monitor_var.trace("w", update_monitor_selection)
 
 
-
-# Model selection setup (right of camera selection)
+# Model selection setup
 model_label = tk.Label(controls_frame, text="Model:")
 model_label.pack(side=tk.LEFT, padx=(20, 5))
 
@@ -169,11 +121,6 @@ model_options = ['ViT-B/32', 'ViT-B/16', 'ViT-L/14']  # Example model options
 model_menu = tk.OptionMenu(controls_frame, model_var, *model_options, command=load_selected_model)
 model_menu.pack(side=tk.LEFT, padx=5)
 
-
-def get_monitor_options():
-    monitors = get_monitors()
-    monitor_options = [f"Monitor {i+1}" for i, _ in enumerate(monitors)]
-    return monitor_options
 
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -293,10 +240,6 @@ def update_frame():
                 overlay_start_x + 10, overlay_start_y + start_y_offset + idx * text_spacing)  # Adjust text position
             cv2.putText(cv2_frame, text, text_position, cv2.FONT_HERSHEY_DUPLEX, font_scale, (255, 0, 0), thickness)
 
-    else:
-        # If no face detected, use the whole frame
-        frame_rgb = cv2.cvtColor(cv2_frame, cv2.COLOR_BGR2RGB)
-
 
 
     # Define border width in pixels
@@ -340,10 +283,9 @@ def update_frame():
     label0.image = frame_photo
 
     # Schedule the next update
-    root.after(5, update_frame)
+    root.after(10, update_frame)
 
 
 update_frame()
 root.mainloop()
 
-cap.release()

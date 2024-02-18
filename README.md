@@ -10,7 +10,7 @@ This tool is able to detect a face from a pre-selected area on the screen, and i
 </p>
 
 
-## Methodology
+### Methodology
 To perform such a task, we use a zero-shot classification model. These types of models are quite reliable and accurate for classification purposes.   
      
 Classification tasks were mainly of texts, but now there are models that are modest enough to also classify images or visual content. What we have done is to use the OpenAI Clip model, and classify each frame into one of several different categories or labels.   

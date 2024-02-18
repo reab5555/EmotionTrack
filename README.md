@@ -1,6 +1,3 @@
-<p>
-  <img src="1.png" width="10%" height="auto">
-</p>
 
 # EmotionTrak
 

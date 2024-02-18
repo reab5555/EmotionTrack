@@ -1,0 +1,7 @@
+opencv-python
+numpy
+torch
+Pillow
+tk
+mss
+screeninfo

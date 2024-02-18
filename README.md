@@ -1,4 +1,4 @@
-<p
+<p>
   <img src="1.png" width="10%" height="auto">
 </p>
 
@@ -8,7 +8,7 @@
 ## Description
 This tool is able to detect a face from a pre-selected area on the screen, and identify which are top 5 dominant emotions the facial expressions might express.
 
-<p
+<p>
   <img src="2.png" width="35%" height="auto">>
 </p>
 

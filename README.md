@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="1.png" width="35%" height="auto">>
+  <img src="1.png" width="15%" height="auto">>
 </p>
 # EmotionTrak
 

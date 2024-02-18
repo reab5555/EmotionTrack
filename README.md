@@ -3,6 +3,11 @@
 ## Description
 This tool is able to detect a face from a pre-selected area on the screen, and identify which are top 5 dominant emotions the facial expressions might express.
 
+<p align="center">
+  <img src="2.png" width="35%" height="auto">>
+</p>
+
+
 ## Methodology
 To perform such a task, we use a zero-shot classification model. These types of models are quite reliable and accurate for classification purposes.   
      

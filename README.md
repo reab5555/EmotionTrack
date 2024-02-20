@@ -51,7 +51,19 @@ As the amount of labels or emotions increases, and there is more emotional richn
 <p>
   <img src="FER2013-CLIPVITL14.png" width="32%" height="auto">
 </p>
-    
+
+
+## Examples
+
+<p>
+  <img src="exp1.png" width="50%" height="auto">
+  <img src="exp2.png" width="50%" height="auto">
+  <img src="exp3.png" width="50%" height="auto">
+  <img src="exp4.png" width="50%" height="auto">
+  <img src="exp5.png" width="50%" height="auto">
+
+</p>
+
 ## Requirements
 Please make sure to have a GPU powerful enough for such task. this was only tested on Geforce RTX 4070 Mobile with 8GB memory.
 If the proccess or interface is too slow, try to change to a different model.   

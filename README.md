@@ -13,7 +13,7 @@ This tool is able to detect a face from a pre-selected area on the screen, and i
 ### Methodology
 To perform such a task, we use a zero-shot classification model. These types of models are quite reliable and accurate for classification purposes.   
      
-Classification tasks were mainly of texts, but now there are models that are accurate enough to also classify images or visual content. What we have done is to use the OpenAI Clip models, and classify each frame into one of several different categories or labels. particlirly, we use OpenAI Clip ViT-L/14, which is considered large.   
+Classification tasks were mainly of texts, but now there are models that are accurate enough to also classify images or visual content. The main advantage of using zero-shot classification models is the ability to choose the labels and costumize the target classification labels we wish. What we have done is to use the OpenAI Clip models, and classify each frame into one of several different categories or labels. particularly, we use OpenAI Clip ViT-L/14, which is considered large.   
 
 
 For more information, please visit:    

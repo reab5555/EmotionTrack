@@ -13,9 +13,16 @@ This tool is able to detect a face from a pre-selected area on the screen, and i
 ### Methodology
 To perform such a task, we use a zero-shot classification model. These types of models are quite reliable and accurate for classification purposes.   
      
-Classification tasks were mainly of texts, but now there are models that are modest enough to also classify images or visual content. What we have done is to use the OpenAI Clip model, and classify each frame into one of several different categories or labels.   
+Classification tasks were mainly of texts, but now there are models that are accurate enough to also classify images or visual content. What we have done is to use the OpenAI Clip models, and classify each frame into one of several different categories or labels. particlirly, we use OpenAI Clip ViT-L/14, which is considered large.   
 
+
+For more information, please visit:    
+https://openai.com/research/clip    
+https://github.com/openai/CLIP
+
+Please take a glance into FER2013 evaluation performances for example.   
     
+   
 For our purpose, the categories or labels are emotions, and we will also add the word "Face" to them to be more specific for the model.   
     
 We have selected several emotions for the labels such as:    
@@ -33,6 +40,7 @@ Emotions with a higher probability for the face will appear first, and in total,
 </p>
 
 ## Requirements
+* Please make sure to have a GPU powerful enough for such task. this was only tested on Geforce RTX 4070 Mobile with 8GB memory.
 $ pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113   
 $ pip install git+https://github.com/openai/CLIP.git   
 $ pip install -r requirements.txt   

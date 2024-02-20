@@ -1,16 +1,14 @@
 
 # EmotionTrak
 
-
-## Description
-This tool is able to detect a face from a pre-selected area on the screen, and identify which are top 5 dominant emotions the facial expressions might express.
+## This tool is able to detect a face from a pre-selected area on the screen, and identify which are top 5 dominant emotions the facial expressions might express.
 
 <p>
   <img src="2.png" width="25%" height="auto">
 </p>
 
 
-### Methodology
+## Methodology
 To perform such a task, we use a zero-shot classification model. These types of models are quite reliable and accurate for classification purposes.   
      
 Classification tasks were mainly of texts, but now there are models that are accurate enough to also classify images or visual content. The main advantage of using zero-shot classification models is the ability to choose the labels and costumize the target classification labels we wish, so we are not limited by some predified unchangable categories set by a specific model. What we have done is to use the OpenAI Clip models, and classify each frame into one of several different categories or labels. 
@@ -31,7 +29,7 @@ Emotions with a higher probability for the face will appear first, and in total,
   <img src="diagram.png" width="32%" height="auto">
 </p>
 
-### Validation
+## Validation
 particularly, we tested OpenAI Clip ViT-L/14, which is considered large.   
 
 For more information, please visit:    

@@ -56,11 +56,11 @@ As the amount of labels or emotions increases, and there is more emotional richn
 ## Examples
 
 <p>
-  <img src="exp1.png" width="50%" height="auto">
-  <img src="exp2.png" width="50%" height="auto">
-  <img src="exp3.png" width="50%" height="auto">
-  <img src="exp4.png" width="50%" height="auto">
-  <img src="exp5.png" width="50%" height="auto">
+  <img src="exp1.png" width="35%" height="auto">
+  <img src="exp2.png" width="35%" height="auto">
+  <img src="exp3.png" width="35%" height="auto">
+  <img src="exp4.png" width="35%" height="auto">
+  <img src="exp5.png" width="35%" height="auto">
 
 </p>
 

@@ -17,12 +17,13 @@ For our purpose, the categories or labels are emotions, and we will also add the
     
 We have selected several emotions for the labels such as:    
 Happy Face, Sad Face, Angry Face, Fear Face, Disgust Face, Contempt Face, Nervous Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Calm Face, Proud Face, Guilty Face, Annoyed Face, Desperate Face, Jealous Face, Embarrassed Face, Impatient Face, Uncomfortable Face, Bitter Face, Helpless Face, Shy Face, Infatuated Face, Betrayed Face, Shocked Face, Relaxed Face, Apathetic Face, Neutral Face.    
-    
-Other unselected emotions were dropped from the list because they had too high correlations with other labels or emotions.   
+
 
 <p>
-  <img src="emotions.png" width="25%" height="auto">
+  <img src="emotions.png" width="45%" height="auto">
 </p>
+
+Other unselected emotions were dropped from the list because they had too high correlations with other labels or emotions.   
 
 Now, once we have selected an area of our screen to focus on, the algorithm will search for a face in it.    
 If it detects a face by using another model designed for face recognition (OpenCV's haarcascades), it will crop the face and transform it into black and white to avoid biases, and feed it to the clip model, and start providing different probabilities for each label or emotion.   

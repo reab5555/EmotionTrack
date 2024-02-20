@@ -6,6 +6,7 @@ from PIL import Image, ImageTk
 import tkinter as tk
 from mss import mss
 import torch.nn.functional as F
+from facenet_pytorch import MTCNN
 
 
 global input_labels_X, snapshot, snapshot_mode, second_monitor_coordinates
@@ -125,13 +126,11 @@ model_menu.pack(side=tk.LEFT, padx=5)
 model_menu["menu"].config(font=button_font)
 
 
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
+# Initialize MTCNN for face detection
+mtcnn = MTCNN(keep_all=True, device=device)
 
 def update_frame():
-    global current_label, snapshot_mode, capture_area, frame_count, start_time
-
-
+    global capture_area
     # Use capture_area for capturing the screen
     with mss() as sct:
         monitor = {"top": capture_area['y'], "left": capture_area['x'], "width": capture_area['width'], "height": capture_area['height']}
@@ -139,51 +138,54 @@ def update_frame():
         cv2_frame = np.array(sct_img)
         cv2_frame = cv2.cvtColor(cv2_frame, cv2.COLOR_RGBA2RGB)
 
-    # Detect faces in the frame
-    gray = cv2.cvtColor(cv2_frame, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+    # Convert the frame to PIL Image for MTCNN
+    frame_pil = Image.fromarray(cv2_frame)
+
+    # Detect faces
+    boxes, _ = mtcnn.detect(frame_pil)
 
     # Find the largest face detected
     largest_area = 0
     largest_face = None
-    for (x, y, w, h) in faces:
-        area = w * h
-        if area > largest_area:
-            largest_area = area
-            largest_face = (x, y, w, h)
+    if boxes is not None:
+        for box in boxes:
+            x, y, w, h = box[0], box[1], box[2], box[3]
+            area = (w - x) * (h - y)
+            if area > largest_area:
+                largest_area = area
+                largest_face = box
 
-
-    # Draw rectangles around the faces and select the largest face for cropping
+    # Crop and overlay the largest face
     if largest_face is not None:
         x, y, w, h = largest_face
-        cv2.rectangle(cv2_frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+        cv2.rectangle(cv2_frame, (int(x), int(y)), (int(w), int(h)), (0, 255, 0), 2)
         # Crop the largest face from the frame
-        cropped_face = cv2_frame[y:y + h, x:x + w]
-        # Convert the cropped face's color from BGR to RGB
-        frame_rgb = cv2.cvtColor(cropped_face, cv2.COLOR_BGR2RGB)
+        cropped_face = cv2_frame[int(y):int(h), int(x):int(w)]
 
         # Resize the cropped face to a smaller size for display
-        small_face = cv2.resize(cropped_face, (300, 300))
+        small_face = cv2.resize(cropped_face, (400, 500))
+        small_face_gray = cv2.cvtColor(small_face, cv2.COLOR_BGR2GRAY)
+        small_face_bgr = cv2.cvtColor(small_face_gray, cv2.COLOR_GRAY2BGR)
 
         # Calculate position for the small face in the lower right corner of the main frame
-        face_pos_x = cv2_frame.shape[1] - small_face.shape[1] - 10  # 10 pixels from the right edge
-        face_pos_y = cv2_frame.shape[0] - small_face.shape[0] - 10  # 10 pixels from the bottom edge
+        face_pos_x = cv2_frame.shape[1] - small_face_bgr.shape[1] - 10  # 10 pixels from the right edge
+        face_pos_y = cv2_frame.shape[0] - small_face_bgr.shape[0] - 10  # 10 pixels from the bottom edge
 
-        # Overlay the small face onto the main frame
-        # Convert small_face to grayscale
-        small_face_gray = cv2.cvtColor(small_face, cv2.COLOR_BGR2GRAY)
-        # Convert the grayscale image back to BGR before overlaying (to match cv2_frame's color space)
-        small_face_bgr = cv2.cvtColor(small_face_gray, cv2.COLOR_GRAY2BGR)
+        # Overlay the small grayscale face onto the main frame
         cv2_frame[face_pos_y:face_pos_y + small_face_bgr.shape[0],
         face_pos_x:face_pos_x + small_face_bgr.shape[1]] = small_face_bgr
 
-        # Convert the frame to grayscale
+        # Assuming cropped_face is the largest face cropped from the frame
+        # Convert the cropped face's color from BGR to RGB and then to grayscale
+        frame_rgb = cv2.cvtColor(cropped_face, cv2.COLOR_BGR2RGB)
         frame_gray = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2GRAY)
 
-        # Resize the grayscale image to your desired size
-        frame_gray = cv2.resize(frame_gray, (1920, 1080))
+        # Resize the grayscale image to your desired size for the model
+        # Assuming the model expects a 224x224 input
+        frame_gray_resized = cv2.resize(frame_gray, (524, 524))
 
-        frame_tensor = preprocess(Image.fromarray(frame_gray)).unsqueeze(0).to(device)
+        # Convert the resized grayscale image to a tensor
+        frame_tensor = preprocess(Image.fromarray(frame_gray_resized)).unsqueeze(0).to(device)
 
         # Tokenize input labels and prepare for model
         input_labels = input_labels_X.split(", ")
@@ -209,40 +211,18 @@ def update_frame():
         top_five_labels_logits = combined_labels_logits[:5]
 
         overlay_start_x = 10
-        overlay_start_y = 10
-        overlay_width = 400  # Adjusted based on frame size
-        overlay_height = 350  # Adjusted to fit the text
-
-        # Create a semi-transparent overlay
-        overlay = cv2_frame[overlay_start_y:overlay_start_y + overlay_height,
-                  overlay_start_x:overlay_start_x + overlay_width].copy()
-        transparent_layer = np.zeros_like(overlay, dtype=np.uint8)
-        cv2.rectangle(transparent_layer, (0, 0), (overlay_width, overlay_height), (255, 255, 255), -1)
-
-        alpha = 0.4  # Transparency factor
-        cv2.addWeighted(transparent_layer, alpha, overlay, 1 - alpha, 0, overlay)
-        cv2_frame[overlay_start_y:overlay_start_y + overlay_height,
-        overlay_start_x:overlay_start_x + overlay_width] = overlay
-
-        font_scale = 1.0
-        thickness = 1
-        text_spacing = 65  # Space between lines
-
-        # Adjust text positioning dynamically
-        num_texts = len(top_five_labels_logits)
-        total_text_height = num_texts * text_spacing
-        start_y_offset = (overlay_height - total_text_height) // 2  # Center texts vertically within the overlay
-
-        # Increase the start_y_offset to move text lower
-        start_y_offset += 35  # Increase this value to move the text lower within the overlay
+        overlay_start_y = 80
+        font_scale = 2.5
+        thickness = 2
+        text_spacing = 100
 
         for idx, (label, logit) in enumerate(top_five_labels_logits):
+            # Format the label and its probability
             text = f"{label.strip()}: {logit * 100:.1f}%"
-            text_position = (
-                overlay_start_x + 10, overlay_start_y + start_y_offset + idx * text_spacing)  # Adjust text position
-            cv2.putText(cv2_frame, text, text_position, cv2.FONT_HERSHEY_DUPLEX, font_scale, (255, 0, 0), thickness)
-
-
+            # Calculate the position of the text to be drawn, adjust as necessary
+            text_position = (overlay_start_x, overlay_start_y + idx * text_spacing)
+            # Draw the text directly onto the frame
+            cv2.putText(cv2_frame, text, text_position, cv2.FONT_HERSHEY_DUPLEX, font_scale, (0, 255, 0), thickness)
 
     # Define border width in pixels
     top, bottom, left, right = [15]*4  # Example: 50 pixels border on all sides

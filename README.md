@@ -16,7 +16,7 @@ Classification tasks were mainly of texts, but now there are models that are acc
 For our purpose, the categories or labels are emotions, and we will also add the word "Face" to them to be more specific for the model.   
     
 We have selected several emotions for the labels such as:    
-Happy Face, Sad Face, Angry Face, Fear Face, Nervous Face, Disgust Face, Contempt Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Proud Face, Guilty Face, Shy Face , Sympathetic Face, Infatuated Face, Neutral Face.    
+Happy Face, Sad Face, Angry Face, Fear Face, Disgust Face, Contempt Face, Nervous Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Calm Face, Proud Face, Guilty Face, Annoyed Face, Desperate Face, Jealous Face, Embarrassed Face, Impatient Face, Uncomfortable Face, Bitter Face, Helpless Face, Shy Face, Infatuated Face, Betrayed Face, Shocked Face, Relaxed Face, Apathetic Face, Neutral Face.    
     
 Other unselected emotions were dropped from the list because they had too high correlations with other labels or emotions.   
 

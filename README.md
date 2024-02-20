@@ -40,7 +40,8 @@ Emotions with a higher probability for the face will appear first, and in total,
 </p>
 
 ## Requirements
-Please make sure to have a GPU powerful enough for such task. this was only tested on Geforce RTX 4070 Mobile with 8GB memory.    
+Please make sure to have a GPU powerful enough for such task. this was only tested on Geforce RTX 4070 Mobile with 8GB memory.
+If the proccess or interface is too slow, try to change to a different model.   
     
 $ pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113   
 $ pip install git+https://github.com/openai/CLIP.git   

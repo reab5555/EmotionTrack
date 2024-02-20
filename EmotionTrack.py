@@ -11,7 +11,7 @@ import torch.nn.functional as F
 global input_labels_X, snapshot, snapshot_mode, second_monitor_coordinates
 
 
-input_labels_X = "Happy Face, Sad Face, Angry Face, Fear Face, Nervous Face, Disgust Face, Contempt Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Proud Face, Guilty Face, Shy Face, Sympathetic Face, Infatuated Face, Neutral Face"
+input_labels_X = "Happy Face, Sad Face, Angry Face, Fear Face, Disgust Face, Contempt Face, Nervous Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Calm Face, Proud Face, Guilty Face, Annoyed Face, Desperate Face, Jealous Face, Embarrassed Face, Impatient Face, Uncomfortable Face, Bitter Face, Helpless Face, Shy Face, Infatuated Face, Betrayed Face, Shocked Face, Relaxed Face, Apathetic Face, Neutral Face"
 
 
 device = "cuda"
@@ -98,15 +98,15 @@ def select_capture_area():
     selection_window.mainloop()
 
 
-# Global variable for capture area
-# Button to select capture area
-select_area_button = tk.Button(controls_frame, text="Select Capture Area", command=select_capture_area)
+button_font = ('Helvetica', 25)  # Example font family and size
+button_padx = 10  # Horizontal padding
+button_pady = 5  # Vertical padding
+
+select_area_button = tk.Button(controls_frame, text="Select Capture Area", command=select_capture_area, font=button_font, padx=button_padx, pady=button_pady)
 select_area_button.pack(side=tk.LEFT, padx=5)
 
-
-
 # Model selection setup
-model_label = tk.Label(controls_frame, text="Model:")
+model_label = tk.Label(controls_frame, text="Model:", font=button_font)
 model_label.pack(side=tk.LEFT, padx=(20, 5))
 
 
@@ -119,8 +119,10 @@ def load_selected_model(selected_model):
 model_var = tk.StringVar(value="ViT-L/14")  # Default model
 model_options = ['ViT-B/32', 'ViT-B/16', 'ViT-L/14']  # Example model options
 model_menu = tk.OptionMenu(controls_frame, model_var, *model_options, command=load_selected_model)
-model_menu.pack(side=tk.LEFT, padx=5)
 
+model_menu.config(font=button_font)  # Increase font size for the dropdown
+model_menu.pack(side=tk.LEFT, padx=5)
+model_menu["menu"].config(font=button_font)
 
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -217,13 +219,13 @@ def update_frame():
         transparent_layer = np.zeros_like(overlay, dtype=np.uint8)
         cv2.rectangle(transparent_layer, (0, 0), (overlay_width, overlay_height), (255, 255, 255), -1)
 
-        alpha = 0.65  # Transparency factor
+        alpha = 0.4  # Transparency factor
         cv2.addWeighted(transparent_layer, alpha, overlay, 1 - alpha, 0, overlay)
         cv2_frame[overlay_start_y:overlay_start_y + overlay_height,
         overlay_start_x:overlay_start_x + overlay_width] = overlay
 
         font_scale = 1.0
-        thickness = 2
+        thickness = 1
         text_spacing = 65  # Space between lines
 
         # Adjust text positioning dynamically

@@ -3,7 +3,7 @@
 # EmotionTrack
 
 <p align="left">
-  <img src="URL_TO_YOUR_IMAGE" alt="Your Image Description" width="100" style="margin-right: 20px;"/>
+  <img src="assets/1.png" alt="Your Image Description" width="100" style="margin-right: 20px;"/>
   <span>Your text here. This text will be aligned with the image to its left. You can describe the EmotionTrack feature or any other content you wish to include next to the image.</span>
 </p>
 

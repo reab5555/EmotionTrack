@@ -2,7 +2,9 @@
   <img src="assets/1.png" width="5%" height="auto">
 </p>
 
-# EmotionTrak
+<p>
+  <img src="assets/1.png" width="5%" height="auto">
+</p> # EmotionTrak
 
 This tool is able to detect a face from a pre-selected area on the screen, and identify which are top 5 dominant emotions the facial expressions might express.
 

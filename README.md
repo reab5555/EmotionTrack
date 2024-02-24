@@ -10,7 +10,7 @@ This tool is able to detect a face from a pre-selected area on the screen, and i
 
 
 ## Methodology
-A notable advantage when one want to recognize facial expressions and the emotions they express is to use a greater number of emotions than the basic 4-6 types of emotions used in old algorithms and models (such as sadness, happiness, fear, anger, surprise and disgust). To perform such a task, we use a zero-shot classification model. These types of models are quite reliable and accurate for classification purposes, and are able to classify images to a number of classes the user define.   
+A notable advantage when one want to recognize facial expressions and the emotions they express is to use a greater number of emotions than the basic 4-6 types of emotions used in old algorithms and models (such as sadness, happiness, fear, anger, surprise and disgust). To perform such a task, we use a zero-shot classification model. These types of models are quite reliable and accurate for classification purposes, and are able to classify images to a custom number of classes the user define.   
      
 Classification tasks were mainly of texts, but now there are models that are accurate enough to also classify images or visual content. The main advantage of using zero-shot classification models is the ability to choose the labels and costumize the target classification labels we wish, so we are not limited by some predified unchangable categories set by a specific model. What we have done is to use the OpenAI Clip models, and classify each frame into one of several different categories or labels. 
     

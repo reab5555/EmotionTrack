@@ -4,7 +4,7 @@
 This tool is able to detect a face from a pre-selected area on the screen, and identify which are top 5 dominant emotions the facial expressions might express.
 
 <p>
-  <img src="2.png" width="25%" height="auto">
+  <img src="assets/2.png" width="25%" height="auto">
 </p>
 
 
@@ -30,7 +30,7 @@ If it detects a face by using another model designed for face recognition (MTCNN
 Emotions with a higher probability for the face will appear first, and in total, the 5 most dominant emotions embodied through the face will appear.   
 
 <p>
-  <img src="diagram.png" width="32%" height="auto">
+  <img src="assets/diagram.png" width="32%" height="auto">
 </p>
 
 ## Validation
@@ -49,19 +49,19 @@ There are distinct emotions out of the six that the model clearly identifies as 
 As the amount of labels or emotions increases, and there is more emotional richness or options to choose from, there is a better chance that several emotions will be recognized simultaneously from the facial expression. Therefore, it is necessary to check which emotions receive the largest percentages of prediction in the output of the model results.    
 
 <p>
-  <img src="FER2013-CLIPVITL14.png" width="32%" height="auto">
+  <img src="assets/FER2013-CLIPVITL14.png" width="32%" height="auto">
 </p>
 
 
 ## Examples
 
 <p>
-  <img src="exp1.png" width="25%" height="auto">
-  <img src="exp2.png" width="25%" height="auto">
-  <img src="exp3.png" width="25%" height="auto">
-  <img src="exp4.png" width="25%" height="auto">
-  <img src="exp5.png" width="25%" height="auto">
-  <img src="exp6.png" width="25%" height="auto">
+  <img src="assets/exp1.png" width="25%" height="auto">
+  <img src="assets/exp2.png" width="25%" height="auto">
+  <img src="assets/exp3.png" width="25%" height="auto">
+  <img src="assets/exp4.png" width="25%" height="auto">
+  <img src="assets/exp5.png" width="25%" height="auto">
+  <img src="assets/exp6.png" width="25%" height="auto">
 </p>
 
 ## Requirements

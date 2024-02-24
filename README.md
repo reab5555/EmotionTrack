@@ -1,6 +1,4 @@
-<p>
-  <img src="assets/1.png" width="5%" height="auto">
-</p>
+
 
 # EmotionTrak
 
@@ -23,7 +21,7 @@ Happy Face, Sad Face, Angry Face, Fear Face, Disgust Face, Contempt Face, Nervou
 
 
 <p>
-  <img src="emotions.png" width="100%" height="auto">
+  <img src="assets/emotions.png" width="100%" height="auto">
 </p>
 
 Other unselected emotions were dropped from the list because they had too high correlations with other labels or emotions.   

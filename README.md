@@ -1,11 +1,6 @@
 
 
-
-
-<p align="left">
-  <img src="assets/1.png" alt="Your Image Description" width="100" style="margin-right: 20px;"/>
-  <span># EmotionTrack.</span>
-</p>
+# EmotionTrack
 
 This tool is able to detect a face from a pre-selected area on the screen, and identify which are top 5 dominant emotions the facial expressions might express.
 

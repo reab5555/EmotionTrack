@@ -182,7 +182,7 @@ def update_frame():
 
         # Resize the grayscale image to your desired size for the model
         # Assuming the model expects a 224x224 input
-        frame_gray_resized = cv2.resize(frame_gray, (524, 524))
+        frame_gray_resized = cv2.resize(frame_gray, (224, 224))
 
         # Convert the resized grayscale image to a tensor
         frame_tensor = preprocess(Image.fromarray(frame_gray_resized)).unsqueeze(0).to(device)

@@ -1,13 +1,10 @@
 
 
 # EmotionTrack
-
-This tool is able to detect a face from a pre-selected area on the screen, and identify which are top 5 dominant emotions the facial expressions might express.
-
+EmotionTrack can detect and analyze facial expressions from a specific area on the computer screen. It identifies the dominant emotions expressed by the face, and provides a list of the top 5 emotions it has detected.
 <p>
   <img src="assets/2.png" width="25%" height="auto">
 </p>
-
 
 ## Methodology
 A notable advantage when one want to recognize facial expressions and the emotions they express is to use a greater number of emotions than the basic 4-6 types of emotions used in old algorithms and models (such as sadness, happiness, fear, anger, surprise and disgust). To perform such a task, we use a zero-shot classification model. These types of models are quite reliable and accurate for classification purposes, and are able to classify images to a custom number of classes the user define.   
@@ -15,7 +12,6 @@ A notable advantage when one want to recognize facial expressions and the emotio
 Classification tasks were mainly of texts, but now there are models that are accurate enough to also classify images or visual content. The main advantage of using zero-shot classification models is the ability to choose the labels and costumize the target classification labels we wish, so we are not limited by some predified unchangable categories set by a specific model. What we have done is to use the OpenAI Clip models, and classify each frame into one of several different categories or labels. 
     
 For our purpose, the categories or labels are emotions, and we will also add the word "Face" to them to be more specific for the model.   
-    
 We have selected several emotions for the labels such as:    
 Happy Face, Sad Face, Angry Face, Fear Face, Disgust Face, Contempt Face, Nervous Face, Curious Face, Flirtatious Face, Ashamed Face, Bored Face, Confused Face, Calm Face, Proud Face, Guilty Face, Annoyed Face, Desperate Face, Jealous Face, Embarrassed Face, Impatient Face, Uncomfortable Face, Bitter Face, Helpless Face, Shy Face, Infatuated Face, Betrayed Face, Shocked Face, Relaxed Face, Apathetic Face, Neutral Face.    
 
